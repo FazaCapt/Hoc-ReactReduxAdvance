@@ -1,23 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
 export default function(ComposedComponent) {
     class Authentication extends Component {
         render() {
-            // console.log(this.props.resources) // => resourcesList
+            // console.log('Rendering', ComposedComponent);
+            console.log(this.props.authenticated);
             return <ComposedComponent {...this.props} /> 
         }
     }
-    return Authentication;
+    function mapStateToProps(state){
+        return {authenticated: state.authenticated}
+    }
+
+    return connect(mapStateToProps)(Authentication);
 }
 
-
-// // In some location... Not in this file...
-// // we want to use this HOC
-
-// import Authentication //this is my HOC
-// import Resources //this is the component i want to wrap
-
-// const ComposedComponent = Authentication(Resources);
-
-// // in some render method....
-// <ComposedComponent resources={resourcesList} />
